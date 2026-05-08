@@ -1,8 +1,6 @@
 # **HomeSync**  
 *A modular full‑stack household life‑management platform.*
 
----
-
 ## **✨ Features**
 
 ### **Unified Household Operations**
