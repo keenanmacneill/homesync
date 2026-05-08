@@ -1,7 +1,7 @@
 # **HomeSync**  
 *A modular full‑stack household life‑management platform.*
 
-## **✨ Features**
+## **✨ Features** (Coming Soon)
 
 ### **Unified Household Operations**
 HomeSync consolidates multiple life‑management domains into one platform:
@@ -14,9 +14,7 @@ HomeSync consolidates multiple life‑management domains into one platform:
 - **Car Maintenance** — Vehicles, mileage‑based tasks, due dates, and manufacturer schedule ingestion.  
 - **Cat Care** — Feeding, litter, meds, vet visits, weight tracking, photos, and supply inventory.
 
----
-
-## **🤖 AI‑Powered Enhancements**
+## **🤖 AI‑Powered Enhancements** (Coming Soon)
 
 HomeSync includes an integrated AI assistant for:
 
@@ -26,9 +24,7 @@ HomeSync includes an integrated AI assistant for:
 - Document ingestion (PDFs, screenshots) to populate maintenance schedules, workout templates, etc.  
 - Purchase suggestions with links.
 
----
-
-## **📄 Document Ingestion**
+## **📄 Document Ingestion** (Coming Soon)
 
 A Python microservice parses:
 
@@ -39,9 +35,7 @@ A Python microservice parses:
 
 Extracted data becomes structured entries in the database.
 
----
-
-## **🧱 Architecture**
+## **🧱 Architecture** (Coming Soon)
 
 ### **Tech Stack**
 **Frontend:** React, TypeScript, React Router, React Query, MUI  
@@ -51,9 +45,7 @@ Extracted data becomes structured entries in the database.
 **Auth:** JWT (access + refresh), password‑based login  
 **Storage:** S3‑compatible bucket for photos & uploads  
 
----
-
-## **🏛️ Architectural Style**
+## **🏛️ Architectural Style** (Coming Soon)
 
 HomeSync is a **modular monolith** with:
 
@@ -70,9 +62,7 @@ HomeSync is a **modular monolith** with:
 
 Each module follows consistent patterns for controllers, services, repositories, and SQL migrations.
 
----
-
-## **🗄️ Database Overview**
+## **🗄️ Database Overview** (Coming Soon)
 
 Each module includes its own tables. Examples:
 
@@ -107,9 +97,7 @@ Each module includes its own tables. Examples:
 - `cat_supplies`  
 - `cat_photos`  
 
----
-
-## **🧭 API Structure**
+## **🧭 API Structure** (Coming Soon)
 
 Base URL: `/api/v1`
 
@@ -138,16 +126,14 @@ Example modules:
 - `POST /ingest/upload`  
 - `GET /ingest/:id`  
 
----
-
-## **📱 Frontend Structure**
+## **📱 Frontend Structure** (Coming Soon)
 
 ### **Global Layout**
 - Top nav: household name, user menu  
 - Side nav: Dashboard, Cards, Chores, Movies, Workouts, Lawn, Vehicles, Cats  
 - AI assistant panel  
 
-### **Dashboard Highlights**
+### **Dashboard Highlights** (Coming Soon)
 - Upcoming chores  
 - Expiring card benefits  
 - Car maintenance due  
@@ -157,9 +143,7 @@ Example modules:
 - AI suggestions  
 - Recent photos  
 
----
-
-## **🔐 Non‑Functional Requirements**
+## **🔐 Non‑Functional Requirements** (Coming Soon)
 
 - Secure JWT auth  
 - Hashed passwords  
@@ -168,8 +152,6 @@ Example modules:
 - Graceful error handling  
 - Mobile‑friendly UI  
 - Extensible module pattern  
-
----
 
 ## **🚀 Development Roadmap**
 
@@ -200,8 +182,6 @@ Example modules:
 - Screenshots + demo video  
 - AI recommendations across modules  
 
----
-
 ## **📦 Installation & Setup**
 
 ```bash
@@ -213,9 +193,7 @@ docker compose up --build
 Frontend: http://localhost:3000  
 Backend: http://localhost:4000  
 
----
-
-## **📸 Screenshots (Coming Soon)**
+## **📸 Screenshots** (Coming Soon)
 
 - Dashboard  
 - Credit card tracker  
