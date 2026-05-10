@@ -4,8 +4,6 @@ A self-hosted household management platform for two. Runs on a Raspberry Pi. Tra
 
 Built with React + Vite (PWA), Node.js / Express, PostgreSQL, and Python worker processes. Works offline — changes sync automatically when you're back on the home network.
 
----
-
 ## Modules
 
 | Module | What it tracks |
@@ -17,8 +15,6 @@ Built with React + Vite (PWA), Node.js / Express, PostgreSQL, and Python worker 
 | **Lawn Care** | Mowing logs, fertilizing, herbicide, weather-based mow windows, lawn photos |
 | **Car Maintenance** | Vehicles, mileage-based tasks, service logs, maintenance schedule ingestion |
 | **Cat Care** | Two cats — meds, vet visits, weight tracking, recurring care schedules, photos |
-
----
 
 ## Stack
 
@@ -44,8 +40,6 @@ Built with React + Vite (PWA), Node.js / Express, PostgreSQL, and Python worker 
 - Raspberry Pi 4 (self-hosted, always-on)
 - Local filesystem for photo and document storage
 - Tailscale for optional remote access
-
----
 
 ## Architecture
 
@@ -78,8 +72,6 @@ Workers communicate with the API exclusively through PostgreSQL. No inter-proces
 When away from the home network, write operations (POST, PUT, PATCH, DELETE) are queued in IndexedDB. On reconnect, the sync engine replays them in order against the live API. Conflicts are resolved last-write-wins; edge cases are flagged for manual review.
 
 Sync status is visible in the app header: `Synced` · `Pending N changes` · `Offline`
-
----
 
 ## Key Features
 
@@ -117,8 +109,6 @@ A set is automatically flagged as a PR when it exceeds the user's previous best 
 
 Recurring care items (vaccines, flea/tick, supplements, dental) are tracked per cat with configurable intervals. The scheduler surfaces items due within 7 days and flags overdue medication doses.
 
----
-
 ## API
 
 All endpoints are under `/api/v1/` and require `Authorization: Bearer <token>` except auth routes.
@@ -135,8 +125,6 @@ Response envelope:
 
 Core route groups: `modules`, `chores`, `cards/benefits`, `movies`, `workouts`, `lawn`, `vehicles/maintenance`, `cats`, `documents`, `photos`, `weather`, `sync`, `auth`
 
----
-
 ## Database
 
 PostgreSQL 16. Migrations via Knex.js.
@@ -144,8 +132,6 @@ PostgreSQL 16. Migrations via Knex.js.
 Core tables: `users`, `modules`, `chores`, `chore_completion_history`, `progress_photos`, `documents`, `parse_jobs`, `weather_events`, `sync_queue`
 
 Module tables: `credit_cards`, `card_benefits`, `benefit_usage_logs`, `movie_entries`, `workout_routines`, `workout_logs`, `exercise_sets`, `lawn_config`, `lawn_treatment_logs`, `mow_window_recommendations`, `vehicles`, `maintenance_tasks`, `maintenance_logs`, `cats`, `cat_weight_logs`, `cat_med_logs`, `cat_vet_visits`, `cat_care_schedules`
-
----
 
 ## Pi Setup
 
@@ -166,8 +152,6 @@ Module tables: `credit_cards`, `card_benefits`, `benefit_usage_logs`, `movie_ent
 **Backup**
 Daily `pg_dump` to an external drive or NAS, retained 30 days. Configured via systemd timer.
 
----
-
 ## Deployment
 
 All processes are managed by systemd:
@@ -182,8 +166,6 @@ All processes are managed by systemd:
 | `nginx` | Reverse proxy |
 
 Logs: `/var/log/homesync/`
-
----
 
 ## Development
 
@@ -219,8 +201,6 @@ python parser_worker.py
 python lawn_advisor.py
 ```
 
----
-
 ## Project Status
 
 Currently in development. Planned modules are implemented in this order:
@@ -235,8 +215,6 @@ Currently in development. Planned modules are implemented in this order:
 - [ ] Cat Care
 - [ ] Offline sync (PWA + IndexedDB)
 - [ ] Document ingestion pipeline
-
----
 
 ## License
 
