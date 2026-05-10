@@ -459,7 +459,6 @@ erDiagram
 - Node.js 20 LTS (via nvm)
 - Python 3.11+
 - Nginx
-- Tailscale (optional, for remote access)
 
 **Recommended hardware**
 - USB 3.0 SSD (256GB+) for boot and storage — more durable than SD under constant DB writes
