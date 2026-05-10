@@ -133,6 +133,323 @@ Core tables: `users`, `modules`, `chores`, `chore_completion_history`, `progress
 
 Module tables: `credit_cards`, `card_benefits`, `benefit_usage_logs`, `movie_entries`, `workout_routines`, `workout_logs`, `exercise_sets`, `lawn_config`, `lawn_treatment_logs`, `mow_window_recommendations`, `vehicles`, `maintenance_tasks`, `maintenance_logs`, `cats`, `cat_weight_logs`, `cat_med_logs`, `cat_vet_visits`, `cat_care_schedules`
 
+Here's the raw Mermaid ERD code:
+
+```mermaid
+erDiagram
+  users {
+    uuid id PK
+    text email
+    text password_hash
+    text display_name
+    text role
+    timestamptz created_at
+    timestamptz last_login_at
+  }
+  modules {
+    uuid id PK
+    text name
+    text module_type
+    text description
+    uuid owner_id FK
+    boolean weather_sensitive
+    text zipcode
+    timestamptz created_at
+  }
+  chores {
+    uuid id PK
+    uuid module_id FK
+    text title
+    text description
+    uuid assigned_to FK
+    date due_date
+    text recurrence_pattern
+    timestamptz last_completed_at
+    text status
+    boolean is_weather_dependent
+    text notes
+  }
+  chore_completion_history {
+    uuid id PK
+    uuid chore_id FK
+    uuid completed_by FK
+    timestamptz completed_at
+    text notes
+  }
+  progress_photos {
+    uuid id PK
+    uuid module_id FK
+    uuid entity_id
+    text entity_type
+    text file_path
+    text caption
+    timestamptz taken_at
+    uuid uploaded_by FK
+  }
+  documents {
+    uuid id PK
+    uuid module_id FK
+    text file_name
+    text file_path
+    text document_type
+    jsonb parsed_content
+    text parse_status
+    timestamptz uploaded_at
+  }
+  parse_jobs {
+    uuid id PK
+    uuid document_id FK
+    text status
+    timestamptz queued_at
+    timestamptz started_at
+    timestamptz completed_at
+    text error
+    int retry_count
+  }
+  weather_events {
+    uuid id PK
+    uuid module_id FK
+    date forecast_date
+    text condition
+    text severity
+    uuid[] chores_affected
+    timestamptz alert_sent_at
+  }
+  sync_queue {
+    uuid id PK
+    uuid user_id FK
+    text method
+    text endpoint
+    jsonb payload
+    timestamptz queued_at
+    timestamptz synced_at
+    boolean conflict_flagged
+  }
+  credit_cards {
+    uuid id PK
+    uuid module_id FK
+    text card_name
+    text issuer
+    text last_four
+    numeric annual_fee
+    date renewal_date
+  }
+  card_benefits {
+    uuid id PK
+    uuid card_id FK
+    text benefit_name
+    numeric benefit_value
+    text reset_cycle
+    int reset_day
+    date expires_at
+    text notes
+  }
+  benefit_usage_logs {
+    uuid id PK
+    uuid benefit_id FK
+    uuid used_by FK
+    numeric amount_used
+    timestamptz used_at
+    text notes
+  }
+  movie_entries {
+    uuid id PK
+    uuid module_id FK
+    text title
+    int year
+    text platform
+    uuid added_by FK
+    text watched_status
+    timestamptz watched_at
+    numeric rating
+    boolean is_favorite
+    text notes
+  }
+  workout_routines {
+    uuid id PK
+    uuid module_id FK
+    text name
+    int deload_cycle_weeks
+    text notes
+  }
+  workout_logs {
+    uuid id PK
+    uuid module_id FK
+    uuid routine_id FK
+    uuid logged_by FK
+    date session_date
+    boolean is_deload_session
+    text notes
+  }
+  exercise_sets {
+    uuid id PK
+    uuid workout_log_id FK
+    text exercise_name
+    int set_number
+    int reps
+    numeric weight_lbs
+    numeric rpe
+    boolean is_pr
+  }
+  lawn_config {
+    uuid id PK
+    uuid module_id FK
+    text grass_type
+    numeric target_mow_height_in
+    numeric growth_rate_in_per_day
+    int pref_min_temp_f
+    int pref_max_temp_f
+    int pref_min_humidity
+    int pref_max_humidity
+    int rain_exclusion_days
+    int square_footage
+  }
+  lawn_treatment_logs {
+    uuid id PK
+    uuid module_id FK
+    text treatment_type
+    uuid treated_by FK
+    date treatment_date
+    numeric cut_height_in
+    text product_name
+    numeric product_amount_oz
+    text notes
+  }
+  mow_window_recommendations {
+    uuid id PK
+    uuid module_id FK
+    timestamptz generated_at
+    date[] suggested_dates
+    numeric estimated_height_in
+    numeric recommended_cut_height_in
+    timestamptz alert_sent_at
+  }
+  vehicles {
+    uuid id PK
+    uuid module_id FK
+    int year
+    text make
+    text model
+    text trim
+    text vin
+    int current_mileage
+    timestamptz last_mileage_updated_at
+  }
+  maintenance_tasks {
+    uuid id PK
+    uuid vehicle_id FK
+    text task_name
+    int interval_miles
+    int interval_days
+    timestamptz last_completed_at
+    int last_completed_mileage
+    date next_due_date
+    int next_due_mileage
+    text status
+    text notes
+  }
+  maintenance_logs {
+    uuid id PK
+    uuid maintenance_task_id FK
+    uuid completed_by FK
+    timestamptz serviced_at
+    int mileage_at_service
+    text service_provider
+    numeric cost_usd
+    text notes
+  }
+  cats {
+    uuid id PK
+    uuid module_id FK
+    text name
+    text breed
+    date date_of_birth
+    text notes
+  }
+  cat_weight_logs {
+    uuid id PK
+    uuid cat_id FK
+    numeric weight_lbs
+    timestamptz logged_at
+    text notes
+  }
+  cat_med_logs {
+    uuid id PK
+    uuid cat_id FK
+    text med_name
+    text dose
+    int frequency_days
+    date start_date
+    date end_date
+    timestamptz last_given_at
+    timestamptz next_due_at
+    text notes
+  }
+  cat_vet_visits {
+    uuid id PK
+    uuid cat_id FK
+    date visit_date
+    text clinic_name
+    text vet_name
+    text reason
+    text findings
+    date next_visit_date
+    numeric cost_usd
+  }
+  cat_care_schedules {
+    uuid id PK
+    uuid cat_id FK
+    text item_name
+    int interval_days
+    timestamptz last_completed_at
+    date next_due_date
+    text notes
+  }
+
+  users ||--o{ modules : owns
+  users ||--o{ chores : assigned_to
+  users ||--o{ chore_completion_history : completed_by
+  users ||--o{ progress_photos : uploaded_by
+  users ||--o{ sync_queue : queues
+  users ||--o{ benefit_usage_logs : used_by
+  users ||--o{ movie_entries : added_by
+  users ||--o{ workout_logs : logged_by
+  users ||--o{ lawn_treatment_logs : treated_by
+  users ||--o{ maintenance_logs : completed_by
+
+  modules ||--o{ chores : contains
+  modules ||--o{ progress_photos : has
+  modules ||--o{ documents : stores
+  modules ||--o{ weather_events : receives
+  modules ||--o{ credit_cards : has
+  modules ||--o{ movie_entries : has
+  modules ||--o{ workout_routines : has
+  modules ||--o{ workout_logs : has
+  modules ||--o| lawn_config : configures
+  modules ||--o{ lawn_treatment_logs : records
+  modules ||--o{ mow_window_recommendations : generates
+  modules ||--o{ vehicles : tracks
+  modules ||--o{ cats : contains
+
+  chores ||--o{ chore_completion_history : logs
+
+  documents ||--o| parse_jobs : queues
+
+  credit_cards ||--o{ card_benefits : defines
+  card_benefits ||--o{ benefit_usage_logs : tracks
+
+  workout_routines ||--o{ workout_logs : guides
+  workout_logs ||--o{ exercise_sets : contains
+
+  vehicles ||--o{ maintenance_tasks : schedules
+  maintenance_tasks ||--o{ maintenance_logs : records
+
+  cats ||--o{ cat_weight_logs : tracks
+  cats ||--o{ cat_med_logs : tracks
+  cats ||--o{ cat_vet_visits : records
+  cats ||--o{ cat_care_schedules : follows
+```
+
 ## Pi Setup
 
 **Requirements**
